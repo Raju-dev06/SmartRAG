@@ -13,7 +13,8 @@ import java.util.List;
 @Service
 public class EmbeddingService {
 
-    String apiKey = "AIzaSyAvK2-yEjh3K0S7I0F4VpYidmEG3zAn7mM";
+    @Value("${gemini.api.key}")
+    private String apiKey;
 
 //    public List<Double> createEmbedding(String text) {
 //
