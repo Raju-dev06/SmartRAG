@@ -4,10 +4,12 @@ import com.practice.raggeminiworking.model.VectorChunk;
 import com.practice.raggeminiworking.service.EmbeddingService;
 import com.practice.raggeminiworking.service.GeminiService;
 import com.practice.raggeminiworking.service.VectorStoreService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/chat")
 public class ChatController {
@@ -30,10 +32,12 @@ public class ChatController {
                       @RequestParam String question) {
 
         List<Double> questionEmbedding =
-                embeddingService.createEmbedding(question);
+                embeddingService.createEmbeddings(List.of(question)).get(0);
 
         List<VectorChunk> chunks =
-                vectorStoreService.searchSimilarChunks(sessionId, questionEmbedding, 5);
+                vectorStoreService.searchSimilarChunks(sessionId, question, questionEmbedding, 5);
+
+        log.debug("Found {} similar chunks for the question", chunks.size());
 
         String context = chunks.stream()
                 .map(VectorChunk::getText)

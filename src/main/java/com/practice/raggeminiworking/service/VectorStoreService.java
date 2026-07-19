@@ -3,6 +3,7 @@ package com.practice.raggeminiworking.service;
 import com.practice.raggeminiworking.model.VectorChunk;
 import com.practice.raggeminiworking.repository.ChunkRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,12 +21,17 @@ public class VectorStoreService {
         chunkRepository.saveChunk(chunk);
     }
 
-    public List<VectorChunk> searchSimilarChunks(String sessionId, List<Double> embedding, int limit) {
+    @Transactional
+    public void storeAllChunks(List<VectorChunk> chunks) {
+        chunkRepository.saveAllChunks(chunks);
+    }
+
+    public List<VectorChunk> searchSimilarChunks(String sessionId, String question, List<Double> embedding, int limit) {
 
         String vectorString = embedding.stream()
                 .map(String::valueOf)
                 .collect(Collectors.joining(",", "[", "]"));
 
-        return chunkRepository.searchSimilarChunks(sessionId, vectorString, limit);
+        return chunkRepository.searchSimilarChunks(sessionId, question, vectorString, limit);
     }
 }

@@ -12,6 +12,10 @@ public class VectorChunk {
     private String sourceType;
     private String fileName;
 
+    private Integer vectorRank;
+    private Integer keywordRank;
+    private Double rrfScore;
+
     public VectorChunk() {}
 
     public VectorChunk(Long id, String sessionId, String text, List<Double> embedding) {
@@ -27,6 +31,9 @@ public class VectorChunk {
     public List<Double> getEmbedding() { return embedding; }
     public String getSourceType() { return sourceType; }
     public String getFileName() { return fileName; }
+    public Integer getVectorRank() { return vectorRank; }
+    public Integer getKeywordRank() { return keywordRank; }
+    public Double getRrfScore() { return rrfScore; }
 
     public void setId(Long id) { this.id = id; }
     public void setSessionId(String sessionId) { this.sessionId = sessionId; }
@@ -34,4 +41,7 @@ public class VectorChunk {
     public void setEmbedding(List<Double> embedding) { this.embedding = embedding; }
     public void setSourceType(String sourceType) { this.sourceType =sourceType; }
     public void setFileName(String fileName) { this.fileName = fileName; }
+    public void setVectorRank(Integer vectorRank) { this.vectorRank = vectorRank; }
+    public void setKeywordRank(Integer keywordRank) { this.keywordRank = keywordRank; }
+    public void setRrfScore(Double rrfScore) { this.rrfScore = rrfScore; }
 }
